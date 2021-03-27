@@ -46,10 +46,10 @@ class Lottery:
     def get_drawing_phase(self):
         return self.lottery_contract.functions.drawingPhase().call()
 
-    def get_matching_reward_amount(self, issue_index):
+    def get_matching_reward_amount(self, issue_index, matching_num):
         matching_reward_amount = (
             self.lottery_contract.functions.getMatchingRewardAmount(
-                issue_index, 2
+                issue_index, matching_num
             ).call()
         )
 
