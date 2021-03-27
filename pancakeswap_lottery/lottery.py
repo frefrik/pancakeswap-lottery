@@ -89,13 +89,6 @@ class Lottery:
 
         return history_amount
 
-    def get_total_prizes(self, issue_index):
-        total_prizes = self.lottery_contract.functions.historyAmount(
-            issue_index, 0
-        ).call()
-
-        return total_prizes / self.decimals
-
     def get_issue_index(self):
         return self.lottery_contract.functions.issueIndex().call()
 
