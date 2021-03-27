@@ -53,7 +53,7 @@ class Lottery:
             ).call()
         )
 
-        return matching_reward_amount / self.decimals
+        return int(matching_reward_amount / self.decimals)
 
     def get_lottery_numbers(self, tokenid):
         return self.token_contract.functions.getLotteryNumbers(tokenid).call()
@@ -106,7 +106,7 @@ class Lottery:
     def get_min_price(self):
         min_price = self.lottery_contract.functions.minPrice().call()
 
-        return min_price / self.decimals
+        return int(min_price / self.decimals)
 
     def get_total_addresses(self):
         return self.lottery_contract.functions.totalAddresses().call()
