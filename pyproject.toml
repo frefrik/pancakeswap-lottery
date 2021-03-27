@@ -1,0 +1,32 @@
+[tool.poetry]
+name = "pancakeswap-lottery"
+version = "0.1.0"
+description = "A Python client for accessing PancakeSwap Lottery smart contract information through Web3.py"
+repository = "https://github.com/frefrik/pancakeswap-lottery"
+readme = "README.md"
+keywords = ["pancakeswap", "cake", "lottery", "bsc", "web3"]
+authors = ["Fredrik Haarstad <codemonkey@zomg.no>"]
+license = "MIT"
+packages = [
+    { include = "pancakeswap_lottery" },
+]
+include = ["pancakeswap_lottery/assets/*.abi"]
+classifiers = [
+    "Intended Audience :: Developers",
+    "Intended Audience :: Financial and Insurance Industry",
+    "Intended Audience :: Information Technology",
+    "Topic :: Software Development :: Libraries :: Python Modules",
+]
+
+[tool.poetry.dependencies]
+python = "^3.8"
+web3 = "^5.17.0"
+
+[tool.poetry.dev-dependencies]
+pytest = "^5.2"
+flake8 = "^3.9.0"
+black = "^20.8b1"
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
