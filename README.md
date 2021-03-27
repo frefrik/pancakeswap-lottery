@@ -2,6 +2,11 @@
 
 A Python client for accessing [PancakeSwap Lottery](https://pancakeswap.finance/lottery) smart contract information through Web3.py.
 
+## Install
+```bash
+$ pip install pancakeswap-lottery
+```
+
 ## Documentation
 ```python
 from pancakeswap_lottery import Lottery
@@ -9,7 +14,7 @@ from pancakeswap_lottery import Lottery
 lottery = Lottery()
 ```
 
-### Current lottery
+### Realtime data
 #### get_issue_index
 ```python
 >>> lottery.get_issue_index()
@@ -52,7 +57,7 @@ False
 2021-03-27 11:38:49
 ```
 
-### Past lotteries (with issue index)
+### Historical data (using issue index)
 
 #### get_total_rewards (Prize pool)
 ```python
@@ -78,7 +83,7 @@ False
 34
 ```
 
-### Past lotteries (with tokenid)
+### Historical data (using tokenid)
 #### get_lottery_numbers
 ```python
 >>> lottery.get_lottery_numbers(1328060)
