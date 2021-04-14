@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "pancakeswap-lottery"
-version = "0.1.2"
+version = "0.1.3"
 description = "A Python client for accessing PancakeSwap Lottery smart contract information through Web3.py"
 repository = "https://github.com/frefrik/pancakeswap-lottery"
 readme = "README.md"
