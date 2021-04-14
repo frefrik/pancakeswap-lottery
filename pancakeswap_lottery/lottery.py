@@ -2,6 +2,7 @@ import os
 import json
 from datetime import datetime
 from web3 import Web3
+from .utils import generate_lottery_date
 
 
 def _load_abi(abi_name):
@@ -39,6 +40,11 @@ class Lottery:
         ).call()
 
         return total_rewards / self.decimals
+
+    def get_lottery_date(self, issue_index):
+        lottery_date = generate_lottery_date(issue_index)
+
+        return lottery_date
 
     def get_drawed(self):
         return self.lottery_contract.functions.drawed().call()

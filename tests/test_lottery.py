@@ -33,6 +33,11 @@ def test_get_history_numbers(issue_index):
     assert r
 
 
+def test_get_lottery_date(issue_index):
+    r = lottery.get_lottery_date(issue_index)
+    assert r
+
+
 def test_get_balance_of(address):
     r = lottery.get_balance_of(address)
     assert r
