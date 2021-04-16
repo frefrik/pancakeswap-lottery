@@ -1,9 +1,14 @@
-# PancakeSwap Lottery - Web3 client
+# PancakeSwap Lottery 🥞 - Web3 client
+
+[![PyPI version](https://badge.fury.io/py/pancakeswap-lottery.svg)](https://badge.fury.io/py/pancakeswap-lottery)
+![PyPI downloads](https://img.shields.io/pypi/dm/pancakeswap-lottery)
+![Licence](https://img.shields.io/github/license/frefrik/pancakeswap-lottery)
+![Python version](https://img.shields.io/pypi/pyversions/pancakeswap-lottery)
 
 A Python client for accessing [PancakeSwap Lottery](https://pancakeswap.finance/lottery) smart contract information through [Web3.py](https://github.com/ethereum/web3.py).
 
-
-## Install
+## Installation
+Install from [PyPI](https://pypi.org/project/pancakeswap-lottery/):
 ```
 pip install pancakeswap-lottery
 ```
@@ -69,7 +74,7 @@ lottery_contract = lottery.get_lotteryNFT()
 balance = lottery.get_balance_of("0xc13456A34305e9265E907F70f76B1BA6E2055c8B")
 ```
 
-## Preview Responses
+### Response previews
 ```python
 >>> lottery.get_issue_index()
 435
@@ -128,3 +133,10 @@ False
 >>> lottery.get_balance_of("0xc13456A34305e9265E907F70f76B1BA6E2055c8B")
 2673
 ```
+
+## Donate
+If you found this library useful and want to support my work feel free to donate a small amount 🙏🏻
+
+- 🥞 CAKE: 0xCFad66049e2C9Bc28647B2e2e3449B6B7C602d42
+- Ξ ETH: 0x7E916c46157f012Fb8dece4A042Dc603e8d627Df
+- ₿ BTC: bc1qgn2mdf5wsxft33s3ea8sh060y85mzntzs8cuu7
