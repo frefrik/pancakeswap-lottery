@@ -9,13 +9,13 @@ A Python client for accessing [PancakeSwap Lottery](https://pancakeswap.finance/
 
 ---
 
-**Documentation**: <a target="_blank" href="https://frefrik.github.io/pancakeswap-lottery">https://frefrik.github.io/pancakeswap-lottery</a>
+**Documentation**: https://frefrik.github.io/pancakeswap-lottery
 
-**Examples**: <a target="_blank" href="https://frefrik.github.io/pancakeswap-lottery/guide/examples">https://frefrik.github.io/pancakeswap-lottery/guide/examples</a>
+**Examples**: https://frefrik.github.io/pancakeswap-lottery/guide/examples
 
-**Source Code**: <a target="_blank" href="https://github.com/frefrik/pancakeswap-lottery">https://github.com/frefrik/pancakeswap-lottery</a>
+**Source Code**: https://github.com/frefrik/pancakeswap-lottery
 
-**PyPI**: <a target="_blank" href="https://pypi.org/project/pancakeswap-lottery">https://pypi.org/project/pancakeswap-lottery</a>
+**PyPI**: https://pypi.org/project/pancakeswap-lottery
 
 ---
 
