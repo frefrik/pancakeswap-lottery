@@ -1,11 +1,23 @@
 # PancakeSwap Lottery 🥞 - Web3 client
 
-[![PyPI version](https://badge.fury.io/py/pancakeswap-lottery.svg)](https://badge.fury.io/py/pancakeswap-lottery)
+![PyPI version](https://img.shields.io/pypi/v/pancakeswap-lottery)
 ![PyPI downloads](https://img.shields.io/pypi/dm/pancakeswap-lottery)
 ![Licence](https://img.shields.io/github/license/frefrik/pancakeswap-lottery)
 ![Python version](https://img.shields.io/pypi/pyversions/pancakeswap-lottery)
 
 A Python client for accessing [PancakeSwap Lottery](https://pancakeswap.finance/lottery) smart contract information through [Web3.py](https://github.com/ethereum/web3.py).
+
+---
+
+**Documentation**: <a target="_blank" href="https://pancakeswap-lottery.github.io">https://pancakeswap-lottery.github.io</a>
+
+**Examples**: <a target="_blank" href="https://pancakeswap-lottery.github.io/guide/examples">https://pancakeswap-lottery.github.io/guide/examples</a>
+
+**Source Code**: <a target="_blank" href="https://github.com/frefrik/pancakeswap-lottery">https://github.com/frefrik/pancakeswap-lottery</a>
+
+**PyPI**: <a target="_blank" href="https://pypi.org/project/pancakeswap-lottery">https://pypi.org/project/pancakeswap-lottery</a>
+
+---
 
 ## Installation
 Install from [PyPI](https://pypi.org/project/pancakeswap-lottery/):
@@ -140,3 +152,11 @@ If you found this library useful and want to support my work feel free to donate
 - 🥞 CAKE: 0xCFad66049e2C9Bc28647B2e2e3449B6B7C602d42
 - Ξ ETH: 0x7E916c46157f012Fb8dece4A042Dc603e8d627Df
 - ₿ BTC: bc1qgn2mdf5wsxft33s3ea8sh060y85mzntzs8cuu7
+
+## License
+
+This project is licensed under the terms of the MIT license.
+
+## Disclaimer
+
+This project is not affiliated with the PancakeSwap team.
