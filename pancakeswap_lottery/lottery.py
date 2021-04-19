@@ -13,14 +13,19 @@ def _load_abi(abi_name):
 
 
 class Lottery:
-    """
-    Class for accessing PancakeSwap Lottery smart-contract information.
-
-    Args:
-        provider (str): Web3 HTTPProvider
-    """
+    """Class for accessing PancakeSwap Lottery smart-contract information."""
 
     def __init__(self, provider="https://bsc-dataseed1.binance.org:443"):
+        """Initialize the object
+
+        Attributes:
+            provider (str): Web3 HTTPProvider.
+
+                Defaults to https://bsc-dataseed1.binance.org:443
+
+        Examples:
+            lottery = Lottery()
+        """
         self.w3 = Web3(Web3.HTTPProvider(provider))
 
         contract_addresses = {
@@ -42,11 +47,14 @@ class Lottery:
         return self.w3.eth.contract(address=address, abi=_load_abi(abi_name))
 
     def get_total_rewards(self, issue_index):
-        """
-        Total rewards of lottery round
+        """Get total rewards of lottery round
 
         Args:
             issue_index (int): Lottery round
+
+        Examples:
+            >>> lottery.get_total_rewards(432)
+            51384.125
         """
         total_rewards = self.lottery_contract.functions.getTotalRewards(
             issue_index
@@ -55,37 +63,47 @@ class Lottery:
         return total_rewards / self.decimals
 
     def get_lottery_date(self, issue_index):
-        """
-        Date and time of lottery round
+        """Get date and time of lottery round
 
         Args:
             issue_index (int): Lottery round
+
+        Examples:
+            >>> lottery.get_lottery_date(432)
+            2021-03-26 02:00:00+00:00
         """
         lottery_date = generate_lottery_date(issue_index)
 
         return lottery_date
 
     def get_drawed(self):
-        """
-        Check if current lottery round is drawed
+        """Check if current lottery round is drawed
 
+        Examples:
+            >>> lottery.get_drawed()
+            False
         """
         return self.lottery_contract.functions.drawed().call()
 
     def get_drawing_phase(self):
-        """
-        Current lottery round drawing phase
+        """Get current lottery round drawing phase
 
+        Examples:
+            >>> lottery.get_drawing_phase()
+            False
         """
         return self.lottery_contract.functions.drawingPhase().call()
 
     def get_matching_reward_amount(self, issue_index, matching_num):
-        """
-        Numers of tickets matched a specified number
+        """Get number of tickets matched a specified number
 
         Args:
             issue_index (int): Lottery round
             matching_num (int): Number to match
+
+        Examples:
+            >>> lottery.get_matching_reward_amount(432, 3)
+            34
         """
         matching_reward_amount = (
             self.lottery_contract.functions.getMatchingRewardAmount(
@@ -96,29 +114,38 @@ class Lottery:
         return int(matching_reward_amount / self.decimals)
 
     def get_lottery_numbers(self, tokenid):
-        """
-        Lottery numbers for a given ticket
+        """Get lottery numbers for a given ticket
 
         Args:
             tokenid (int): Lottery ticket id
+
+        Examples:
+            >>> lottery.get_lottery_numbers(1328060)
+            [11, 5, 14, 6]
         """
         return self.token_contract.functions.getLotteryNumbers(tokenid).call()
 
     def get_reward_view(self, tokenid):
-        """
-        Rewards for a given ticket
+        """Get rewards for a given ticket
 
         Args:
             tokenid (int): Lottery ticket id
+
+        Examples:
+            >>> lottery.get_reward_view(1328060)
+            0
         """
         return self.lottery_contract.functions.getRewardView(tokenid).call()
 
     def get_history_numbers(self, issue_index):
-        """
-        Winning numbers of lottery round
+        """Get winning numbers of lottery round
 
         Args:
             issue_index (int): Lottery round
+
+        Examples:
+            >>> lottery.get_history_numbers(432)
+            [2, 13, 7, 3]
         """
         history_numbers = []
 
@@ -131,11 +158,14 @@ class Lottery:
         return history_numbers
 
     def get_history_amount(self, issue_index):
-        """
-        Numbers of tickets matched
+        """Get numbers of tickets matched
 
         Args:
             issue_index (int): Lottery round
+
+        Examples:
+            >>> lottery.get_history_amount(432)
+            {'4': 1, '3': 34, '2': 718}
         """
         history_amount = {}
 
@@ -154,18 +184,23 @@ class Lottery:
         return history_amount
 
     def get_issue_index(self):
-        """
-        Current lottery round
+        """Get current lottery round id
 
+        Examples:
+            >>> lottery.get_issue_index()
+            435
         """
         return self.lottery_contract.functions.issueIndex().call()
 
     def get_last_timestamp(self, epoch=False):
-        """
-        Last updated (timestamp)
+        """Last updated (timestamp)
 
         Args:
             epoch (bool): Return as epoch timestamp?
+
+        Examples:
+            >>> lottery.get_last_timestamp(epoch=False)
+            2021-03-27 11:38:49
         """
         last_timestamp = self.lottery_contract.functions.lastTimestamp().call()
 
@@ -175,41 +210,51 @@ class Lottery:
             return datetime.fromtimestamp(last_timestamp)
 
     def get_max_number(self):
-        """
-        Max number
+        """Get max number
 
+        Examples:
+            >>> lottery.get_max_number()
+            14
         """
         return self.lottery_contract.functions.maxNumber().call()
 
     def get_min_price(self):
-        """
-        Current price of 1 ticket
+        """Get current price of 1 ticket
 
+        Examples:
+            >>> lottery.get_min_price()
+            1
         """
         min_price = self.lottery_contract.functions.minPrice().call()
 
         return int(min_price / self.decimals)
 
     def get_total_addresses(self):
-        """
-        Total addresses
+        """Get total addresses
 
+        Examples:
+            >>> lottery.get_total_addresses()
+            200
         """
         return self.lottery_contract.functions.totalAddresses().call()
 
     def get_total_amount(self):
-        """
-        Total pot (CAKE) of current lottery round
+        """Get total pot (CAKE) of current lottery round
 
+        Examples:
+            >>> lottery.get_total_amount()
+            34977.25
         """
         total_amount = self.lottery_contract.functions.totalAmount().call()
 
         return total_amount / self.decimals
 
     def get_allocation(self):
-        """
-        Prize pool allocation (percent)
+        """Get prize pool allocation (percent)
 
+        Examples:
+            >>> lottery.get_allocation()
+            {'1': 50, '2': 20, '3': 10}
         """
         allocation = {}
 
@@ -220,24 +265,31 @@ class Lottery:
         return allocation
 
     def get_cake(self):
-        """
-        Get CAKE contract address
+        """Get CAKE contract address
 
+        Examples:
+            >>> lottery.get_cake()
+            0x0E09FaBB73Bd3Ade0a17ECC321fD13a19e81cE82
         """
         return self.lottery_contract.functions.cake().call()
 
     def get_lotteryNFT(self):
-        """
-        Get PLT-token contract address
+        """Get PLT-token contract address
 
+        Examples:
+            >>> lottery.get_lotteryNFT()
+            0x5e74094Cd416f55179DBd0E45b1a8ED030e396A1
         """
         return self.lottery_contract.functions.lotteryNFT().call()
 
     def get_balance_of(self, address):
-        """
-        Total number of tickets bought by a given address
+        """Get total number of tickets bought by a given address
 
         Args:
             address (str): BSC address
+
+        Examples:
+            >>> lottery.get_balance_of("0xc13456A34305e9265E907F70f76B1BA6E2055c8B")
+            2673
         """
         return self.token_contract.functions.balanceOf(address).call()
