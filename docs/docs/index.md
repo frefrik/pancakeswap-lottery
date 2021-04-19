@@ -15,9 +15,9 @@
 
 ---
 
-**Documentation**: <a target="_blank" href="https://pancakeswap-lottery.github.io">https://pancakeswap-lottery.github.io</a>
+**Documentation**: <a target="_blank" href="https://frefrik.github.io/pancakeswap-lottery">https://frefrik.github.io/pancakeswap-lottery</a>
 
-**Examples**: <a target="_blank" href="https://pancakeswap-lottery.github.io/guide/examples">https://pancakeswap-lottery.github.io/guide/examples</a>
+**Examples**: <a target="_blank" href="https://frefrik.github.io/pancakeswap-lottery/guide/examples">https://frefrik.github.io/pancakeswap-lottery/guide/examples</a>
 
 **Source Code**: <a target="_blank" href="https://github.com/frefrik/pancakeswap-lottery">https://github.com/frefrik/pancakeswap-lottery</a>
 
