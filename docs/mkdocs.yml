@@ -1,0 +1,52 @@
+site_name: pancakeswap-lottery
+site_description: Python client for accessing PancakeSwap Lottery smart contract information.
+site_url: https://pancakeswap-lottery.github.io/
+site_author: Fredrik Haarstad
+edit_uri: "blob/main/docs/docs/"
+repo_name: pancakeswap-lottery
+repo_url: https://github.com/frefrik/pancakeswap-lottery
+
+nav:
+  - index.md
+  - User Guide:
+      - guide/index.md
+      - guide/examples.md
+      - guide/functions.md
+  - Code Reference: reference.md
+
+theme:
+  name: material
+  accent: purple
+  icon:
+    repo: fontawesome/brands/github-alt
+  logo: img/pancake-lottery-bunny.png
+  favicon: img/pancake-lottery-bunny.png
+  language: en
+
+extra:
+  social:
+    - icon: fontawesome/brands/github-alt
+      link: https://github.com/frefrik
+
+extra_css:
+  - css/style.css
+  - css/termynal.css
+
+extra_javascript:
+  - js/termynal.js
+  - js/custom.js
+
+markdown_extensions:
+  - admonition
+  - toc:
+      permalink: true
+  - pymdownx.superfences
+  - pymdownx.tabbed
+  - pymdownx.details
+  - pymdownx.highlight
+  - pymdownx.magiclink
+
+plugins:
+- search
+- autorefs
+- mkdocstrings
