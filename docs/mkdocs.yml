@@ -36,6 +36,10 @@ extra_javascript:
   - js/termynal.js
   - js/custom.js
 
+google_analytics:
+  - UA-194953307-1
+  - auto
+
 markdown_extensions:
   - admonition
   - toc:
