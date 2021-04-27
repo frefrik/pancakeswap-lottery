@@ -15,13 +15,13 @@ def _load_abi(abi_name):
 class Lottery:
     """Class for accessing PancakeSwap Lottery smart-contract information."""
 
-    def __init__(self, provider="https://bsc-dataseed1.binance.org:443"):
+    def __init__(self, provider="https://bsc-dataseed.binance.org:443"):
         """Initialize the object
 
         Attributes:
             provider (str): Web3 HTTPProvider.
 
-                Defaults to https://bsc-dataseed1.binance.org:443
+                Defaults to https://bsc-dataseed.binance.org:443
 
         Examples:
             lottery = Lottery()
