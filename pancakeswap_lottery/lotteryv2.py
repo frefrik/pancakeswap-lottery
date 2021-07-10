@@ -1,13 +1,5 @@
-import os
-import json
 from web3 import Web3
-
-
-def _load_abi(abi_name):
-    path = f"{os.path.dirname(os.path.abspath(__file__))}/assets/v2/"
-    with open(os.path.abspath(path + f"{abi_name}.abi")) as f:
-        abi: str = json.load(f)
-    return abi
+from .utils import load_abi
 
 
 class LotteryV2:
@@ -43,4 +35,4 @@ class LotteryV2:
         self.decimals = 10 ** 18
 
     def _load_contract(self, abi_name, address):
-        return self.w3.eth.contract(address=address, abi=_load_abi(abi_name))
+        return self.w3.eth.contract(address=address, abi=load_abi(abi_name))

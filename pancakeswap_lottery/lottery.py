@@ -1,15 +1,6 @@
-import os
-import json
 from datetime import datetime
 from web3 import Web3
-from .utils import generate_lottery_date
-
-
-def _load_abi(abi_name):
-    path = f"{os.path.dirname(os.path.abspath(__file__))}/assets/v1/"
-    with open(os.path.abspath(path + f"{abi_name}.abi")) as f:
-        abi: str = json.load(f)
-    return abi
+from .utils import generate_lottery_date, load_abi
 
 
 class Lottery:
@@ -45,7 +36,7 @@ class Lottery:
         self.decimals = 10 ** 18
 
     def _load_contract(self, abi_name, address):
-        return self.w3.eth.contract(address=address, abi=_load_abi(abi_name))
+        return self.w3.eth.contract(address=address, abi=load_abi(abi_name))
 
     def get_total_rewards(self, issue_index):
         """Get total rewards of lottery round
