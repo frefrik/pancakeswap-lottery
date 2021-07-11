@@ -1,3 +1,4 @@
+from datetime import datetime
 from web3 import Web3
 from .utils import load_abi
 
@@ -36,3 +37,256 @@ class LotteryV2:
 
     def _load_contract(self, abi_name, address):
         return self.w3.eth.contract(address=address, abi=load_abi(abi_name))
+
+    def _status(self, statusid):
+        status = {
+            1: "Open",
+            2: "_Unknown_",
+            3: "Claimed",
+        }
+
+        return status[statusid]
+
+    def view_lottery(self, lotteryround):
+        data = self.lottery_contract.functions.viewLottery(lotteryround).call()
+
+        d = {
+            "status": self._status(data[0]),
+            "startTime": datetime.fromtimestamp(data[1]),
+            "endTime": datetime.fromtimestamp(data[2]),
+            "priceTicketInCake": data[3] / self.decimals,
+            "discountDivisor": data[4],
+            "rewardsBreakdown": data[5],
+            "treasuryFee": data[6],
+            "cakePerBracket": {
+                "match_1": data[7][0] / self.decimals,
+                "match_2": data[7][1] / self.decimals,
+                "match_3": data[7][2] / self.decimals,
+                "match_4": data[7][3] / self.decimals,
+                "match_5": data[7][4] / self.decimals,
+                "match_6": data[7][5] / self.decimals,
+            },
+            "countWinnersPerBracket": {
+                "match_1": data[8][0],
+                "match_2": data[8][1],
+                "match_3": data[8][2],
+                "match_4": data[8][3],
+                "match_5": data[8][4],
+                "match_6": data[8][5],
+            },
+            "firstTicketId": data[9],
+            "firstTicketIdNextLottery": data[10],
+            "amountCollectedInCake": data[11] / self.decimals,
+            "finalNumber": data[12],
+        }
+
+        return d
+
+    def current_round(self):
+        """Get current lottery round number
+
+        Examples:
+            >>> lottery.current_round()
+            8
+        """
+        return self.lottery_contract.functions.currentLotteryId().call()
+
+    def current_ticket(self):
+        """Get current ticket id
+
+        Examples:
+            >>> lottery.current_ticket()
+            38963
+        """
+        return self.lottery_contract.functions.currentTicketId().call()
+
+    def ticket_winnings(self, lotteryround, ticketid):
+        """Get CAKE winning rewards for ticket id
+
+        Args:
+            lotteryround (int): Lottery round
+            ticketid (int): Ticket id
+
+        Examples:
+            >>> lottery.ticket_winnings(lotteryround=10, ticketid=158408)
+            2.8676258079479644
+        """
+        winnings = 0
+        brackets = [0, 1, 2, 3, 4, 5]
+
+        for bracket in brackets:
+            data = self.lottery_contract.functions.viewRewardsForTicketId(
+                lotteryround, ticketid, bracket
+            ).call()
+
+            if data > 0:
+                winnings = data / self.decimals
+
+        return winnings
+
+    def prize_pool(self, lotteryround=None):
+        """Get total prize pool size in CAKE
+
+        Args:
+            lotteryround (:obj:`int`, optional): Lottery round
+
+        Examples:
+            >>> lottery.prize_pool()
+            141947
+        """
+
+        if not lotteryround:
+            lotteryround = self.current_round()
+
+        data = self.view_lottery(lotteryround)
+        amount = data.get("amountCollectedInCake")
+
+        return amount
+
+    def draw_date(self, lotteryround=None):
+        """Get lottery draw date
+
+        Args:
+            lotteryround (:obj:`int`, optional): Lottery round
+
+        Examples:
+            >>> lottery.draw_date()
+            141947
+        """
+
+        if not lotteryround:
+            lotteryround = self.current_round()
+
+        lottery = self.view_lottery(lotteryround)
+        lotter_date = lottery.get("endTime")
+
+        return lotter_date
+
+    def prize_pool_allocation(self, lotteryround=None):
+        """Get prize pool allocation in CAKE
+
+        Allocation percentages:
+        - Match first 1: 1%
+        - Match first 2: 3%
+        - Match first 3: 6%
+        - Match first 4: 10%
+        - Match first 5: 20%
+        - Match first 6: 40%
+        - Burn Pool: 20%
+
+        Args:
+            lotteryround (:obj:`int`, optional): Lottery round
+
+        Examples:
+            >>> lottery.prize_pool_allocation()
+            {
+                'match_1': 1419,
+                'match_2': 4258,
+                'match_3': 8517,
+                'match_4': 14195,
+                'match_5': 28389,
+                'match_6': 56779,
+                'burn': 28389
+            }
+        """
+        if not lotteryround:
+            lotteryround = self.current_round()
+
+        data = self.view_lottery(lotteryround)
+        prize_pool = data.get("amountCollectedInCake")
+
+        d = {
+            "match_1": round(prize_pool * 0.01),
+            "match_2": round(prize_pool * 0.03),
+            "match_3": round(prize_pool * 0.06),
+            "match_4": round(prize_pool * 0.1),
+            "match_5": round(prize_pool * 0.2),
+            "match_6": round(prize_pool * 0.4),
+            "burn": round(prize_pool * 0.2),
+        }
+
+        return d
+
+    def ticket_price(self, lotteryround=None):
+        """Get ticket price in CAKE
+
+        Args:
+            lotteryround (:obj:`int`, optional): Lottery round
+
+        Examples:
+            >>> lottery.ticket_price()
+            0.34
+        """
+
+        if not lotteryround:
+            lotteryround = self.current_round()
+
+        lottery = self.view_lottery(lotteryround)
+        price = lottery.get("priceTicketInCake")
+
+        return price
+
+    def status(self, lotteryround=None):
+        """Get status of lottery round
+
+        Args:
+            lotteryround (:obj:`int`, optional): Lottery round
+
+        Examples:
+            >>> lottery.status()
+            Open
+        """
+
+        if not lotteryround:
+            lotteryround = self.current_round()
+
+        data = self.view_lottery(lotteryround)
+        lottery_status = data.get("status")
+
+        return lottery_status
+
+    def winners_per_bracket(self, lotteryround):
+        """Get number of winners per prize bracket
+
+        Args:
+            lotteryround (int): Lottery round
+
+        Examples:
+            >>> lottery.winners_per_bracket(lotteryround=16)
+            {
+                'match_1': 19133,
+                'match_2': 1921,
+                'match_3': 188,
+                'match_4': 21,
+                'match_5': 1,
+                'match_6': 1
+            }
+        """
+
+        data = self.view_lottery(lotteryround)
+        d = data.get("countWinnersPerBracket")
+
+        return d
+
+    def cake_per_bracket(self, lotteryround):
+        """Get amount of CAKE won per ticket in each prize bracket
+
+        Args:
+            lotteryround (int): Lottery round
+
+        Examples:
+            >>> lottery.cake_per_bracket(lotteryround=16)
+            {
+                'match_1': 0.10150861284172895,
+                'match_2': 3.0330519877680375,
+                'match_3': 61.98396668619574,
+                'match_4': 924.8401378575238,
+                'match_5': 38843.285790016,
+                'match_6': 77686.571580032
+            }
+        """
+
+        data = self.view_lottery(lotteryround)
+        d = data.get("cakePerBracket")
+
+        return d
