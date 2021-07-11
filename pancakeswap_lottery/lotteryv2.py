@@ -290,3 +290,40 @@ class LotteryV2:
         d = data.get("cakePerBracket")
 
         return d
+
+    def winning_probability(self, numbers_matched=None):
+        """Get percentage probability of winning the lottery
+
+        Args:
+            numbers_matched (:obj:`int`, optional): Number of winning numbers matched
+
+        Examples:
+            >>> lottery.winning_probability()
+            {
+                'match_1': '10.0000',
+                'match_2': '1.0000',
+                'match_3': '0.1000',
+                'match_4': '0.0100',
+                'match_5': '0.0010',
+                'match_6': '0.0001'
+            }
+        """
+        possible_numbers = 10
+        matchballs = [1, 2, 3, 4, 5, 6]
+        probability_pct = {}
+
+        if numbers_matched:
+            if numbers_matched not in range(1, 7):
+                return "Pick a number between 1 and 6"
+
+            e = possible_numbers ** numbers_matched
+            odds = 1 / e * 100
+
+            return float(f"{odds:.4f}")
+
+        for matchball in matchballs:
+            e = possible_numbers ** matchball
+            odds = 1 / e * 100
+            probability_pct.update({f"match_{matchball}": f"{odds:.4f}"})
+
+        return probability_pct
