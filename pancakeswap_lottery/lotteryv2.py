@@ -59,12 +59,12 @@ class LotteryV2:
             "rewardsBreakdown": data[5],
             "treasuryFee": data[6],
             "cakePerBracket": {
-                "match_1": data[7][0] / self.decimals,
-                "match_2": data[7][1] / self.decimals,
-                "match_3": data[7][2] / self.decimals,
-                "match_4": data[7][3] / self.decimals,
-                "match_5": data[7][4] / self.decimals,
-                "match_6": data[7][5] / self.decimals,
+                "match_1": round(data[7][0] / self.decimals),
+                "match_2": round(data[7][1] / self.decimals),
+                "match_3": round(data[7][2] / self.decimals),
+                "match_4": round(data[7][3] / self.decimals),
+                "match_5": round(data[7][4] / self.decimals),
+                "match_6": round(data[7][5] / self.decimals),
             },
             "countWinnersPerBracket": {
                 "match_1": data[8][0],
@@ -141,7 +141,7 @@ class LotteryV2:
         data = self.view_lottery(lotteryround)
         amount = data.get("amountCollectedInCake")
 
-        return amount
+        return round(amount)
 
     def draw_date(self, lotteryround=None):
         """Get lottery draw date
@@ -300,12 +300,12 @@ class LotteryV2:
         Examples:
             >>> lottery.winning_probability()
             {
-                'match_1': '10.0000',
-                'match_2': '1.0000',
-                'match_3': '0.1000',
-                'match_4': '0.0100',
-                'match_5': '0.0010',
-                'match_6': '0.0001'
+                'match_1': 10.0,
+                'match_2': 1.0,
+                'match_3': 0.1,
+                'match_4': 0.01,
+                'match_5': 0.001,
+                'match_6': 0.0001
             }
         """
         possible_numbers = 10
@@ -324,6 +324,6 @@ class LotteryV2:
         for matchball in matchballs:
             e = possible_numbers ** matchball
             odds = 1 / e * 100
-            probability_pct.update({f"match_{matchball}": f"{odds:.4f}"})
+            probability_pct.update({f"match_{matchball}": float(f"{odds:.4f}")})
 
         return probability_pct
