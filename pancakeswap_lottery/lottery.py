@@ -1,15 +1,6 @@
-import os
-import json
 from datetime import datetime
 from web3 import Web3
-from .utils import generate_lottery_date
-
-
-def _load_abi(abi_name):
-    path = f"{os.path.dirname(os.path.abspath(__file__))}/assets/"
-    with open(os.path.abspath(path + f"{abi_name}.abi")) as f:
-        abi: str = json.load(f)
-    return abi
+from .utils import generate_lottery_date, load_abi
 
 
 class Lottery:
@@ -29,22 +20,23 @@ class Lottery:
         self.w3 = Web3(Web3.HTTPProvider(provider))
 
         contract_addresses = {
-            "lottery": "0x3C3f2049cc17C136a604bE23cF7E42745edf3b91",
-            "token": "0x5e74094Cd416f55179DBd0E45b1a8ED030e396A1",
+            "LotteryUpgradeProxy": "0x3C3f2049cc17C136a604bE23cF7E42745edf3b91",
+            "LotteryNFT": "0x5e74094Cd416f55179DBd0E45b1a8ED030e396A1",
         }
 
         self.lottery_contract = self._load_contract(
-            abi_name="lottery", address=contract_addresses["lottery"]
+            abi_name="LotteryUpgradeProxy",
+            address=contract_addresses["LotteryUpgradeProxy"],
         )
 
         self.token_contract = self._load_contract(
-            abi_name="token", address=contract_addresses["token"]
+            abi_name="LotteryNFT", address=contract_addresses["LotteryNFT"]
         )
 
         self.decimals = 10 ** 18
 
     def _load_contract(self, abi_name, address):
-        return self.w3.eth.contract(address=address, abi=_load_abi(abi_name))
+        return self.w3.eth.contract(address=address, abi=load_abi(abi_name))
 
     def get_total_rewards(self, issue_index):
         """Get total rewards of lottery round

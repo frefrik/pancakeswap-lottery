@@ -1,4 +1,13 @@
+import os
+import json
 from datetime import datetime, timedelta, timezone
+
+
+def load_abi(abi_name):
+    path = f"{os.path.dirname(os.path.abspath(__file__))}/assets/"
+    with open(os.path.abspath(path + f"{abi_name}.abi")) as f:
+        abi: str = json.load(f)
+    return abi
 
 
 def generate_lottery_date(issue_index):

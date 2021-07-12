@@ -3,31 +3,28 @@
 ## Import Lottery
 
 ```python
-from pancakeswap_lottery import Lottery
+from pancakeswap_lottery import LotteryV2
 ```
 
 ## Create Instance
 
-To retrieve data from the lottery smart-contract, create an instance of the `Lottery` class:
+To retrieve data from the lottery smart-contract, create an instance of the `LotteryV2` class:
 
 ```python
-lottery = Lottery()
+lottery = LotteryV2()
 ```
 
 ## Example
 ```python
-from pancakeswap_lottery import Lottery
+from pancakeswap_lottery import LotteryV2
 
-lottery = Lottery()
+lottery = LotteryV2()
 
-# Lottery round #432
-issue_index = 432
+# Lottery draw date and time of lottery round draw
+draw_date = lottery.draw_date(lotteryround=16)
 
-# Date and time of lottery round
-lottery_date = lottery.get_lottery_date(issue_index)
-
-# Total rewards of lottery round
-total_rewards = lottery.get_total_rewards(issue_index)
+# Total prize pool of lottery round
+prize_pool = lottery.prize_pool(lotteryround=16)
 ```
 
 For more examples, see [Examples](examples.md).

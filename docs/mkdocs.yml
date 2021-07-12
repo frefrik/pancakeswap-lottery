@@ -13,6 +13,12 @@ nav:
       - guide/examples.md
       - guide/functions.md
   - Code Reference: reference.md
+  - Lottery V1 (deprecated):
+      - User Guide:
+          - v1/guide/index.md
+          - v1/guide/examples.md
+          - v1/guide/functions.md
+      - Code Reference: v1/reference.md
 
 theme:
   name: material
