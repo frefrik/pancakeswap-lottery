@@ -107,6 +107,7 @@ Open
 <details>
 <summary>Lottery V1</summary>
 
+## Usage (Lottery V1)
 ```python
 from pancakeswap_lottery import Lottery
 
@@ -167,7 +168,7 @@ lottery_contract = lottery.get_lotteryNFT()
 balance = lottery.get_balance_of("0xc13456A34305e9265E907F70f76B1BA6E2055c8B")
 ```
 
-### Response previews
+### Response previews (Lottery V1)
 ```python
 >>> lottery.get_issue_index()
 435
