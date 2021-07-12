@@ -27,6 +27,87 @@ pip install pancakeswap-lottery
 
 ## Usage
 ```python
+from pancakeswap_lottery import LotteryV2
+
+lottery = LotteryV2()
+
+""" Data from current lottery round """
+# Current lottery round number
+current_round = lottery.current_round()
+
+# Current ticket id
+ticketid = lottery.current_ticket()
+
+# Ticket price in CAKE
+ticket_price = lottery.ticket_price()
+
+# Total prize pool of lottery round in CAKE
+prize_pool = lottery.prize_pool()
+
+# Prize pool allocation in CAKE
+allocation = lottery.prize_pool_allocation()
+
+# Lottery draw date and time of lottery round
+draw_date = lottery.draw_date()
+
+# Status of lottery round
+status = lottery.status()
+
+""" Data from historic lottery rounds can also be pulled """
+ticket_price_hist = lottery.ticket_price(lotteryround=10)
+prize_pool_hist = lottery.prize_pool(lotteryround=10)
+allocation_hist = lottery.prize_pool_allocation(lotteryround=10)
+draw_date_hist = lottery.draw_date(lotteryround=10)
+status_hist = lottery.status(lotteryround=10)
+
+""" Winnings """
+# Number of winners per prize bracket
+winners = lottery.winners_per_bracket(lotteryround=16)
+
+# Amount of CAKE won per ticket in each prize bracket
+cake_per_bracket = lottery.cake_per_bracket(lotteryround=16)
+
+# Percentage probability of winning the lottery
+winning_probability = lottery.winning_probability()
+```
+
+### Response previews
+```python
+>>> lottery.current_round()
+20
+
+>>> lottery.current_ticket()
+1124981
+
+>>> lottery.ticket_price()
+0.32
+
+>>> lottery.prize_pool()
+63024
+
+>>> lottery.prize_pool_allocation()
+{'match_1': 630, 'match_2': 1891, 'match_3': 3781, 'match_4': 6302, 'match_5': 12605, 'match_6': 25210, 'burn': 12605}
+
+>>> lottery.draw_date()
+2021-07-12 20:00:00
+
+>>> lottery.status()
+Open
+
+>>> lottery.winning_probability()
+{'match_1': 10.0, 'match_2': 1.0, 'match_3': 0.1, 'match_4': 0.01, 'match_5': 0.001, 'match_6': 0.0001}
+
+>>> lottery.winners_per_bracket(lotteryround=16)
+{'match_1': 19133, 'match_2': 1921, 'match_3': 188, 'match_4': 21, 'match_5': 1, 'match_6': 1}
+
+>>> lottery.cake_per_bracket(lotteryround=16)
+{'match_1': 0, 'match_2': 3, 'match_3': 62, 'match_4': 925, 'match_5': 38843, 'match_6': 77687}
+```
+
+<details>
+<summary>Lottery V1</summary>
+
+```python
 from pancakeswap_lottery import Lottery
 
 lottery = Lottery()
@@ -145,6 +226,7 @@ False
 >>> lottery.get_balance_of("0xc13456A34305e9265E907F70f76B1BA6E2055c8B")
 2673
 ```
+</details>
 
 ## Donate
 If you found this library useful and want to support my work feel free to donate a small amount 🙏🏻
