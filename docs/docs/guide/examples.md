@@ -12,7 +12,7 @@ Get stats from the current lottery round.
 === "Code"
     ```python
     from datetime import datetime
-    from pancakeswap_lottery import Lottery
+    from pancakeswap_lottery import LotteryV2
 
 
     def format_datestr(dt):
@@ -40,31 +40,37 @@ Get stats from the current lottery round.
 
 
     def get_lottery_stats():
-        lottery = Lottery()
+        lottery = LotteryV2()
 
-        issue_index = lottery.get_issue_index()
-        pool_size = lottery.get_total_amount()
+        lotteryround = lottery.current_round()
+        prize_pool = lottery.prize_pool()
 
-        lottery_date = lottery.get_lottery_date(issue_index)
-        drawdate_str = format_datestr(lottery_date)
+        draw_date = lottery.draw_date(lotteryround).astimezone()
+        drawdate_str = format_datestr(draw_date)
 
-        allocation = lottery.get_allocation()
+        allocation = lottery.prize_pool_allocation()
 
-        prize_pool_match4 = int(pool_size * allocation.get("1") / 100)
-        prize_pool_match3 = int(pool_size * allocation.get("2") / 100)
-        prize_pool_match2 = int(pool_size * allocation.get("3") / 100)
+        prize_pool_match1 = allocation.get("match_1")
+        prize_pool_match2 = allocation.get("match_2")
+        prize_pool_match3 = allocation.get("match_3")
+        prize_pool_match4 = allocation.get("match_4")
+        prize_pool_match5 = allocation.get("match_5")
+        prize_pool_match6 = allocation.get("match_6")
 
         ret_str = "🥞 The CAKE Lottery 🥞"
-        ret_str += f"\nRound #{issue_index}"
-        ret_str += f"\nDraw in {drawdate_str} ({lottery_date.strftime('%Y-%m-%d %H:%M')})"
+        ret_str += f"\nRound #{lotteryround}"
+        ret_str += f"\nDraw in {drawdate_str} ({draw_date})"
 
-        ret_str += "\n\n💰 Pool size"
-        ret_str += f"\n{int(pool_size)} CAKE"
+        ret_str += "\n\n💰 Prize pool"
+        ret_str += f"\n{int(prize_pool)} CAKE"
 
         ret_str += "\n\n💵 Prize pool allocation"
+        ret_str += f"\nMatch 6: {prize_pool_match6} CAKE"
+        ret_str += f"\nMatch 5: {prize_pool_match5} CAKE"
         ret_str += f"\nMatch 4: {prize_pool_match4} CAKE"
         ret_str += f"\nMatch 3: {prize_pool_match3} CAKE"
         ret_str += f"\nMatch 2: {prize_pool_match2} CAKE"
+        ret_str += f"\nMatch 1: {prize_pool_match1} CAKE"
 
         return ret_str
 
@@ -76,16 +82,19 @@ Get stats from the current lottery round.
 === "Output"
     ```
     🥞 The CAKE Lottery 🥞
-    Round #481
-    Draw in 2 hours 2 minutes (2021-04-19 14:00)
+    Round #20
+    Draw in 5 hours 40 minutes (2021-07-12 20:00:00+02:00)
 
-    💰 Pool size
-    1581 CAKE
+    💰 Prize pool
+    63402 CAKE
 
     💵 Prize pool allocation
-    Match 4: 790 CAKE
-    Match 3: 316 CAKE
-    Match 2: 158 CAKE
+    Match 6: 25361 CAKE
+    Match 5: 12680 CAKE
+    Match 4: 6340 CAKE
+    Match 3: 3804 CAKE
+    Match 2: 1902 CAKE
+    Match 1: 634 CAKE
     ```
 
 ## Lottery history
@@ -93,30 +102,30 @@ Get lottery history data (*Lottery Date*, *Round*, *Prize pool*) from the last `
 
 === "Code"
     ```python
-    from pancakeswap_lottery import Lottery
+    from pancakeswap_lottery import LotteryV2
 
 
     def get_lottery_history(last_rounds):
-        lottery = Lottery()
+        lottery = LotteryV2()
 
-        issue_index = lottery.get_issue_index()
+        lotteryround = lottery.current_round()
 
         header = ["Lottery Date", "Round", "Prizes (CAKE)"]
         rows = [header]
 
         for i in range(0, last_rounds):
-            issue_index -= 1
+            lotteryround -= 1
 
-            lottery_date = lottery.get_lottery_date(issue_index)
-            lottery_date_str = lottery_date.strftime("%Y-%m-%d %H:%M")
+            draw_date = lottery.draw_date(lotteryround)
+            draw_date_str = draw_date.strftime("%Y-%m-%d %H:%M")
 
-            total_rewards = int(lottery.get_total_rewards(issue_index))
+            prize_pool = int(lottery.prize_pool(lotteryround))
 
-            row = [lottery_date_str, issue_index, total_rewards]
+            row = [draw_date_str, lotteryround, prize_pool]
             rows.append(row)
 
-        ret_str = "🥞 The CAKE Lottery - History 🥞\n\n"
-        ret_str += f"Showing data for last {last_rounds} rounds:\n\n"
+        ret_str = "🥞 The CAKE Lottery - History\n"
+        ret_str += f"\nLast {last_rounds} lottery rounds:\n\n"
         ret_str += "\n".join(["".join([f"{x:>16}" for x in r]) for r in rows])
 
         return ret_str
@@ -129,19 +138,19 @@ Get lottery history data (*Lottery Date*, *Round*, *Prize pool*) from the last `
 
 === "Output"
     ```
-    🥞 The CAKE Lottery - History 🥞
+    🥞 The CAKE Lottery - History
 
-    Showing data for last 10 rounds:
+    Last 10 lottery rounds:
 
         Lottery Date           Round   Prizes (CAKE)
-    2021-04-19 02:00             480           91715
-    2021-04-18 14:00             479           44838
-    2021-04-18 02:00             478            3203
-    2021-04-17 14:00             477            1736
-    2021-04-17 02:00             476           52022
-    2021-04-16 14:00             475           47675
-    2021-04-16 02:00             474            1736
-    2021-04-15 14:00             473            3088
-    2021-04-15 02:00             472          113863
-    2021-04-14 14:00             471           61936
+    2021-07-12 08:00              19           77631
+    2021-07-11 20:00              18          145392
+    2021-07-11 08:00              17            5009
+    2021-07-10 20:00              16          194216
+    2021-07-10 08:00              15           86554
+    2021-07-09 20:00              14          100345
+    2021-07-09 08:00              13            7988
+    2021-07-08 20:00              12          130175
+    2021-07-08 08:00              11           76197
+    2021-07-07 20:00              10          141947
     ```

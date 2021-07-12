@@ -1,6 +1,6 @@
 # Code Reference
 
-::: pancakeswap_lottery.lotteryv2.LotteryV2
+::: pancakeswap_lottery.lottery.Lottery
     handler: python
     rendering:
         show_root_heading: true

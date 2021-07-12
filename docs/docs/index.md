@@ -47,123 +47,97 @@ Python 3.8+
 ## Usage
 === "Example"
     ```python
-    from pancakeswap_lottery import Lottery
+    from pancakeswap_lottery import LotteryV2
 
-    lottery = Lottery()
+    lottery = LotteryV2()
 
-    # Current lottery round
-    issue_index = lottery.get_issue_index()
+    # Get current lottery round number
+    current_round = lottery.current_round()
 
-    # Total pot (CAKE) of current lottery round
-    total_amount = lottery.get_total_amount()
+    # Current ticket id
+    ticketid = lottery.current_ticket()
 
-    # Prize pool allocation (percent)
-    allocation = lottery.get_allocation()
+    # Status of lottery round
+    status = lottery.status()
 
-    # Total addresses
-    total_addresses = lottery.get_total_addresses()
+    # Lottery draw date and time of lottery round
+    draw_date = lottery.draw_date()
 
-    # Drawed 
-    drawed = lottery.get_drawed()
+    # Ticket price in CAKE
+    ticket_price = lottery.ticket_price()
 
-    # Drawing phase
-    drawing_phase = lottery.get_drawing_phase()
+    # Total prize pool of lottery round in CAKE
+    prize_pool = lottery.prize_pool()
 
-    # Last timestamp
-    timestamp = lottery.get_last_timestamp(epoch=False)
+    # Prize pool allocation in CAKE
+    allocation = lottery.prize_pool_allocation()
 
-    # Date and time of lottery round
-    lottery_date = lottery.get_lottery_date(432)
+    # Winning numbers for lottery round
+    winning_numbers = lottery.winning_numbers(lotteryround=16)
 
-    # Total rewards of lottery round
-    total_rewards = lottery.get_total_rewards(432)
+    # Get lottery winnings (CAKE) for a given address and round
+    address_winnings = lottery.address_winnings(address="0x621D6ee5FA9634d86396C13fAaD6A7827606A6d7", lotteryround=16)
 
-    # Winning numbers of lottery round
-    history_numbers = lottery.get_history_numbers(432)
+    # Get lottery winnings (CAKE) for a given ticket and round
+    ticket_winnings = lottery.ticket_winnings(lotteryround=10, ticketid=158408)
 
-    # Numbers of tickets matched
-    history_amount = lottery.get_history_amount(432)
+    # Number of winners per prize bracket
+    winners = lottery.winners_per_bracket(lotteryround=16)
 
-    # Numers of tickets matched a specified number
-    matching_reward_amount = lottery.get_matching_reward_amount(432, 3)
+    # Amount of CAKE won per ticket in each prize bracket
+    cake_per_bracket = lottery.cake_per_bracket(lotteryround=16)
 
-    # Lottery numbers for a given ticket
-    lottery_numbers = lottery.get_lottery_numbers(1328060)
+    # Percentage probability of winning the lottery
+    winning_probability = lottery.winning_probability()
 
-    # Rewards for a given ticket
-    reward_view = lottery.get_reward_view(1328060)
-
-    # Max number
-    max_number = lottery.get_max_number()
-
-    # CAKE contract address
-    cake_contract = lottery.get_cake()
-
-    # PLT-token contract address
-    lottery_contract = lottery.get_lotteryNFT()
-
-    # Total number of tickets bought by a given address
-    balance = lottery.get_balance_of("0xc13456A34305e9265E907F70f76B1BA6E2055c8B")
+    # Data from historic lottery rounds can also be pulled
+    ticket_price_hist = lottery.ticket_price(lotteryround=10)
+    prize_pool_hist = lottery.prize_pool(lotteryround=10)
+    allocation_hist = lottery.prize_pool_allocation(lotteryround=10)
+    draw_date_hist = lottery.draw_date(lotteryround=10)
+    status_hist = lottery.status(lotteryround=10)
     ```
 
 === "Data"
     ```python
-    >>> lottery.get_issue_index()
-    435
+    >>> lottery.current_round()
+    20
 
-    >>> lottery.get_total_amount()
-    34977.25
+    >>> lottery.current_ticket()
+    1124981
 
-    >>> lottery.get_allocation()
-    {'1': 50, '2': 20, '3': 10}
+    >>> lottery.status()
+    Open
 
-    >>> lottery.get_total_addresses()
-    200
+    >>> lottery.draw_date()
+    2021-07-12 20:00:00
 
-    >>> lottery.get_drawed()
-    False
+    >>> lottery.ticket_price()
+    0.32
 
-    >>> lottery.get_drawing_phase()
-    False
+    >>> lottery.prize_pool()
+    63024
 
-    >>> lottery.get_last_timestamp(epoch=False)
-    2021-03-27 11:38:49
+    >>> lottery.prize_pool_allocation()
+    {'match_1': 630, 'match_2': 1891, 'match_3': 3781, 'match_4': 6302, 'match_5': 12605, 'match_6': 25210, 'burn': 12605}
 
-    >>> lottery.get_lottery_date(432)
-    2021-03-26 02:00:00+00:00
+    >>> lottery.winning_numbers(lotteryround=16)
+    743350
 
-    >>> lottery.get_total_rewards(432)
-    51384.125
+    >>> lottery.address_winnings("0x621D6ee5FA9634d86396C13fAaD6A7827606A6d7", lotteryround=16)
+    {'tickets': 8, 'ticketids': [634970, 634971, 634972, 634973, 634974, 634975, 634976, 634977], 'winning_tickets': [634970, 634971]}
 
-    >>> lottery.get_history_numbers(432)
-    [2, 13, 7, 3]
+    >>> lottery.ticket_winnings(lotteryround=15, ticketid=567093)
+    865.536634168
 
-    >>> lottery.get_history_amount(432)
-    {'4': 1, '3': 34, '2': 718}
+    >>> lottery.winners_per_bracket(lotteryround=16)
+    {'match_1': 19133, 'match_2': 1921, 'match_3': 188, 'match_4': 21, 'match_5': 1, 'match_6': 1}
 
-    >>> lottery.get_matching_reward_amount(432, 3)
-    34
+    >>> lottery.cake_per_bracket(lotteryround=16)
+    {'match_1': 0, 'match_2': 3, 'match_3': 62, 'match_4': 925, 'match_5': 38843, 'match_6': 77687}
 
-    >>> lottery.get_lottery_numbers(1328060)
-    [11, 5, 14, 6]
-
-    >>> lottery.get_reward_view(1328060)
-    0
-
-    >>> lottery.get_max_number()
-    14
-
-    >>> lottery.get_min_price()
-    1
-
-    >>> lottery.get_cake()
-    0x0E09FaBB73Bd3Ade0a17ECC321fD13a19e81cE82
-
-    >>> lottery.get_lotteryNFT()
-    0x5e74094Cd416f55179DBd0E45b1a8ED030e396A1
-
-    >>> lottery.get_balance_of("0xc13456A34305e9265E907F70f76B1BA6E2055c8B")
-    2673
+    >>> lottery.winning_probability()
+    {'match_1': 10.0, 'match_2': 1.0, 'match_3': 0.1, 'match_4': 0.01, 'match_5': 0.001, 'match_6': 0.0001}
     ```
 
 ## License
