@@ -61,6 +61,9 @@ draw_date_hist = lottery.draw_date(lotteryround=10)
 status_hist = lottery.status(lotteryround=10)
 
 """ Winnings """
+# Winning numbers for lottery round
+winning_numbers = lottery.winning_numbers(lotteryround=16)
+
 # Number of winners per prize bracket
 winners = lottery.winners_per_bracket(lotteryround=16)
 
@@ -96,6 +99,9 @@ Open
 
 >>> lottery.winning_probability()
 {'match_1': 10.0, 'match_2': 1.0, 'match_3': 0.1, 'match_4': 0.01, 'match_5': 0.001, 'match_6': 0.0001}
+
+ >>> lottery.winning_numbers(lotteryround=16)
+743350
 
 >>> lottery.winners_per_bracket(lotteryround=16)
 {'match_1': 19133, 'match_2': 1921, 'match_3': 188, 'match_4': 21, 'match_5': 1, 'match_6': 1}

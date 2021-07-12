@@ -327,3 +327,19 @@ class LotteryV2:
             probability_pct.update({f"match_{matchball}": float(f"{odds:.4f}")})
 
         return probability_pct
+
+    def winning_numbers(self, lotteryround):
+        """Get winning numbers for lottery round
+
+        Args:
+            lotteryround (int): Lottery round
+
+        Examples:
+            >>> lottery.winning_numbers(lotteryround=16)
+            0
+        """
+        data = self.view_lottery(lotteryround)
+        final_number = str(data.get("finalNumber"))
+        final_number = final_number[::-1][:-1]
+
+        return final_number
