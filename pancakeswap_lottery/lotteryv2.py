@@ -100,30 +100,6 @@ class LotteryV2:
         """
         return self.lottery_contract.functions.currentTicketId().call()
 
-    def ticket_winnings(self, lotteryround, ticketid):
-        """Get CAKE winning rewards for ticket id
-
-        Args:
-            lotteryround (int): Lottery round
-            ticketid (int): Ticket id
-
-        Examples:
-            >>> lottery.ticket_winnings(lotteryround=10, ticketid=158408)
-            2.8676258079479644
-        """
-        winnings = 0
-        brackets = [0, 1, 2, 3, 4, 5]
-
-        for bracket in brackets:
-            data = self.lottery_contract.functions.viewRewardsForTicketId(
-                lotteryround, ticketid, bracket
-            ).call()
-
-            if data > 0:
-                winnings = data / self.decimals
-
-        return winnings
-
     def prize_pool(self, lotteryround=None):
         """Get total prize pool size in CAKE
 
@@ -343,3 +319,61 @@ class LotteryV2:
         final_number = final_number[::-1][:-1]
 
         return final_number
+
+    def ticket_winnings(self, lotteryround, ticketid):
+        """Get lottery winnings (CAKE) for a given ticket and round
+
+        Args:
+            lotteryround (int): Lottery round
+            ticketid (int): Ticket id
+
+        Examples:
+            >>> lottery.ticket_winnings(lotteryround=15, ticketid=567093)
+            865.536634168
+        """
+        winnings = 0
+        brackets = [0, 1, 2, 3, 4, 5]
+
+        for bracket in brackets:
+            data = self.lottery_contract.functions.viewRewardsForTicketId(
+                lotteryround, ticketid, bracket
+            ).call()
+
+            if data > 0:
+                winnings = data / self.decimals
+
+        return winnings
+
+    def address_winnings(self, address, lotteryround):
+        """Get lottery winnings (CAKE) for a given address and round
+
+        Args:
+            address (int): BSC address
+            lotteryround (int): Lottery round
+
+        Examples:
+            >>> lottery.address_winnings("0x621D6ee5FA9634d86396C13fAaD6A7827606A6d7", lotteryround=16)
+            {'tickets': 8, 'ticketids': [634970, 634971, 634972, 634973, 634974, 634975, 634976, 634977], 'winning_tickets': [634970, 634971]}
+        """
+        userinfo = self.lottery_contract.functions.viewUserInfoForLotteryId(
+            self.w3.toChecksumAddress(address),
+            lotteryround,
+            0,
+            100,
+        ).call()
+
+        count = 0
+        winning_tickets = []
+
+        for i in userinfo[2]:
+            if i is True:
+                winning_tickets.append(userinfo[0][count])
+            count += 1
+
+        d = {
+            "tickets": userinfo[3],
+            "ticketids": userinfo[0],
+            "winning_tickets": winning_tickets,
+        }
+
+        return d
