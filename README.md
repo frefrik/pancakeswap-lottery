@@ -31,7 +31,6 @@ from pancakeswap_lottery import LotteryV2
 
 lottery = LotteryV2()
 
-""" Data from current lottery round """
 # Current lottery round number
 current_round = lottery.current_round()
 
@@ -53,14 +52,6 @@ draw_date = lottery.draw_date()
 # Status of lottery round
 status = lottery.status()
 
-""" Data from historic lottery rounds can also be pulled """
-ticket_price_hist = lottery.ticket_price(lotteryround=10)
-prize_pool_hist = lottery.prize_pool(lotteryround=10)
-allocation_hist = lottery.prize_pool_allocation(lotteryround=10)
-draw_date_hist = lottery.draw_date(lotteryround=10)
-status_hist = lottery.status(lotteryround=10)
-
-""" Winnings """
 # Winning numbers for lottery round
 winning_numbers = lottery.winning_numbers(lotteryround=16)
 
@@ -72,6 +63,13 @@ cake_per_bracket = lottery.cake_per_bracket(lotteryround=16)
 
 # Percentage probability of winning the lottery
 winning_probability = lottery.winning_probability()
+
+# Data from historic lottery rounds can also be pulled
+ticket_price = lottery.ticket_price(lotteryround=10)
+prize_pool = lottery.prize_pool(lotteryround=10)
+allocation = lottery.prize_pool_allocation(lotteryround=10)
+draw_date = lottery.draw_date(lotteryround=10)
+status = lottery.status(lotteryround=10)
 ```
 
 ### Response previews
