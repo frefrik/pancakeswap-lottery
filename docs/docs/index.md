@@ -72,6 +72,9 @@ Python 3.8+
     # Prize pool allocation in CAKE
     allocation = lottery.prize_pool_allocation()
 
+    # Total number of tickets in lottery round
+    total_tickets = lottery.total_tickets(lotteryround=23)
+
     # Winning numbers for lottery round
     winning_numbers = lottery.winning_numbers(lotteryround=16)
 
@@ -120,6 +123,9 @@ Python 3.8+
 
     >>> lottery.prize_pool_allocation()
     {'match_1': 630, 'match_2': 1891, 'match_3': 3781, 'match_4': 6302, 'match_5': 12605, 'match_6': 25210, 'burn': 12605}
+
+    >>> lottery.total_tickets(lotteryround=23)
+    14253
 
     >>> lottery.winning_numbers(lotteryround=16)
     743350

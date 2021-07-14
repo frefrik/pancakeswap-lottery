@@ -377,3 +377,24 @@ class LotteryV2:
         }
 
         return d
+
+    def total_tickets(self, lotteryround):
+        """Get total number of tickets in lottery round
+
+        Args:
+            lotteryround (int): Lottery round
+
+        Examples:
+            >>> lottery.total_tickets(lotteryround=23)
+            0
+        """
+        current_round = self.current_round()
+
+        if lotteryround > current_round:
+            return 0
+
+        data = self.view_lottery(lotteryround)
+        first_ticket_id = data.get("firstTicketId")
+        last_ticket_id = data.get("firstTicketIdNextLottery")
+
+        return int(last_ticket_id - first_ticket_id)

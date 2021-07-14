@@ -6,6 +6,7 @@
 - [ticket_price][pancakeswap_lottery.lotteryv2.LotteryV2.ticket_price] - Get ticket price in CAKE
 - [prize_pool][pancakeswap_lottery.lotteryv2.LotteryV2.prize_pool] - Get total prize pool size in CAKE
 - [prize_pool_allocation][pancakeswap_lottery.lotteryv2.LotteryV2.prize_pool_allocation] - Get prize pool allocation in CAKE
+- [total_tickets][pancakeswap_lottery.lotteryv2.LotteryV2.total_tickets] - Get total number of tickets in lottery round
 - [winning_numbers][pancakeswap_lottery.lotteryv2.LotteryV2.winning_numbers] - Get winning numbers for lottery round
 - [address_winnings][pancakeswap_lottery.lotteryv2.LotteryV2.address_winnings] - Get lottery winnings (CAKE) for a given address and round
 - [ticket_winnings][pancakeswap_lottery.lotteryv2.LotteryV2.ticket_winnings] - Get lottery winnings (CAKE) for a given ticket and round
