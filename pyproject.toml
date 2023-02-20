@@ -29,7 +29,7 @@ black = "^20.8b1"
 mkdocs-material = "^7.3.0"
 mkdocs-material-extensions = "^1.0.1"
 mkdocs-autorefs = "^0.2.1"
-mkdocstrings = "^0.15.2"
+mkdocstrings = "^0.17.0"
 
 [build-system]
 requires = ["poetry-core>=1.0.0"]
