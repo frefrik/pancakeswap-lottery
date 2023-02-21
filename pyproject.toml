@@ -28,7 +28,7 @@ flake8 = "^5.0.4"
 black = "^23.1"
 mkdocs-material = "^9.0.13"
 mkdocs-material-extensions = "^1.1.1"
-mkdocs-autorefs = "^0.2.1"
+mkdocs-autorefs = "^0.4.1"
 mkdocstrings = "^0.17.0"
 
 [build-system]
