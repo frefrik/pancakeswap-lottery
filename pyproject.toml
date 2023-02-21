@@ -23,7 +23,7 @@ python = "^3.8"
 web3 = "^5.18.0"
 
 [tool.poetry.dev-dependencies]
-pytest = "^5.2"
+pytest = "^7.2"
 flake8 = "^5.0.4"
 black = "^20.8b1"
 mkdocs-material = "^7.3.0"
