@@ -25,7 +25,7 @@ web3 = "^5.18.0"
 [tool.poetry.dev-dependencies]
 pytest = "^7.2"
 flake8 = "^5.0.4"
-black = "^23.1"
+black = "^23.3"
 mkdocs-material = "^9.0.15"
 mkdocs-material-extensions = "^1.1.1"
 mkdocs-autorefs = "^0.4.1"
