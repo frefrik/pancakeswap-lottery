@@ -350,7 +350,7 @@ class LotteryV2:
         """Get lottery winnings (CAKE) for a given address and round
 
         Args:
-            address (int): BSC address
+            address (str): BSC address
             lotteryround (int): Lottery round
 
         Examples:
