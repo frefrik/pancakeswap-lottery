@@ -1,5 +1,7 @@
 from datetime import datetime
+
 from web3 import Web3
+
 from .utils import load_abi
 
 
@@ -33,7 +35,7 @@ class LotteryV2:
             abi_name="CakeToken", address=contract_addresses["CakeToken"]
         )
 
-        self.decimals = 10 ** 18
+        self.decimals = 10**18
 
     def _load_contract(self, abi_name, address):
         return self.w3.eth.contract(address=address, abi=load_abi(abi_name))
@@ -292,13 +294,13 @@ class LotteryV2:
             if numbers_matched not in range(1, 7):
                 return "Pick a number between 1 and 6"
 
-            e = possible_numbers ** numbers_matched
+            e = possible_numbers**numbers_matched
             odds = 1 / e * 100
 
             return float(f"{odds:.4f}")
 
         for matchball in matchballs:
-            e = possible_numbers ** matchball
+            e = possible_numbers**matchball
             odds = 1 / e * 100
             probability_pct.update({f"match_{matchball}": float(f"{odds:.4f}")})
 
@@ -348,7 +350,7 @@ class LotteryV2:
         """Get lottery winnings (CAKE) for a given address and round
 
         Args:
-            address (int): BSC address
+            address (str): BSC address
             lotteryround (int): Lottery round
 
         Examples:
@@ -356,7 +358,7 @@ class LotteryV2:
             {'tickets': 8, 'ticketids': [634970, 634971, 634972, 634973, 634974, 634975, 634976, 634977], 'winning_tickets': [634970, 634971]}
         """
         userinfo = self.lottery_contract.functions.viewUserInfoForLotteryId(
-            self.w3.toChecksumAddress(address),
+            self.w3.to_checksum_address(address),
             lotteryround,
             0,
             100,
