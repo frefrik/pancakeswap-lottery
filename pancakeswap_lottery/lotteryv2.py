@@ -356,7 +356,7 @@ class LotteryV2:
             {'tickets': 8, 'ticketids': [634970, 634971, 634972, 634973, 634974, 634975, 634976, 634977], 'winning_tickets': [634970, 634971]}
         """
         userinfo = self.lottery_contract.functions.viewUserInfoForLotteryId(
-            self.w3.toChecksumAddress(address),
+            self.w3.to_checksum_address(address),
             lotteryround,
             0,
             100,

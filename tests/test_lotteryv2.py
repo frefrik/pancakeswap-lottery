@@ -19,8 +19,8 @@ def address():
     return "0x621D6ee5FA9634d86396C13fAaD6A7827606A6d7"
 
 
-def test_w3_isConnected():
-    assert lottery.w3.isConnected()
+def test_w3_is_connected():
+    assert lottery.w3.is_connected()
 
 
 def test_current_ticket():
