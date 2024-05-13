@@ -22,7 +22,7 @@ jobs:
       - name: Install dependencies
         run: |
           pip install poetry
-          poetry install
+          poetry install --with docs
         env:
           POETRY_VIRTUALENVS_CREATE: false
 
