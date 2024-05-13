@@ -1,4 +1,5 @@
 import pytest
+
 from pancakeswap_lottery import Lottery
 
 lottery = Lottery()

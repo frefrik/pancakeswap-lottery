@@ -1,5 +1,7 @@
 from datetime import datetime
+
 from web3 import Web3
+
 from .utils import generate_lottery_date, load_abi
 
 
